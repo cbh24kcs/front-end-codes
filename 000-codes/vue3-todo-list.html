@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .todo-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .done {
+            color: #ccc;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 
+        获取元素/节点
+        操作元素或节点
+        告诉元素/节点 发生了什么事之后，做什么事
+     -->
+
+    <!-- 声明式 -->
+    <!-- vue： -->
+
+    <div id="app">
+        <!-- 模板 -->
+        <input type="text" v-model="inputTodo">
+        <button @click="addTodo">添加</button>
+        <ul class="todo-list">
+            <li v-for="todo in todos" :class="{done: todo.done}">
+                <input type="checkbox" v-model="todo.done">
+                {{todo.name}}
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const option = {
+            data() {
+                return {
+                    inputTodo: '',
+                    todos: []
+                }
+            },
+            methods: {
+                addTodo() {
+                    this.todos.push({ id: Date.now(), name: this.inputTodo, done: false })
+                    this.inputTodo = ''
+                }
+            }
+        };
+        Vue.createApp(option).mount('#app');
+    </script>
+</body>
+
+</html>

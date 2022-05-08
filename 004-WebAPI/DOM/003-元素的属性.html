@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #box {
+            width: 600px;
+            height: 600px;
+            background-color: green;
+            position: relative;
+        }
+        .point {
+            width: 4px;
+            height: 4px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .ca-box {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .point-list {
+            width: 300px;
+            height: 100vh;
+            border: 5px solid green;
+            position: fixed;
+            right: 200px;
+            top: 0;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn-pen">画笔</button>
+    <button id="btn-ca">橡皮擦</button>
+    <div id="box"></div>
+
+    <div class="point-list">
+
+    </div>
+
+    <script>
+        let box = document.getElementById("box")
+        let btnPen = document.getElementById('btn-pen')
+        let btnCa = document.getElementById('btn-ca')
+        let pointList = document.getElementsByClassName('point-list')[0]
+
+        let points = [];
+        let isPress = false; // 用来保存鼠标是否按下
+        let mouseType = 'pen'
+        let caR = 50;
+
+        btnPen.onclick = function() {
+            mouseType = 'pen'
+        }
+
+        btnCa.onclick = function() {
+            mouseType = 'ca'
+        }
+
+        box.onmousedown = function() {
+            console.log('鼠标按下');
+            isPress = true
+        };
+        box.onmouseup = function() {
+            console.log('鼠标抬起');
+            isPress = false
+        };
+        box.onmouseenter = function() {
+            console.log('鼠标进入');
+            box.style.backgroundColor = 'red'
+        };
+        box.onmouseleave = function() {
+            console.log('鼠标离开');
+            box.style.backgroundColor = 'blue'
+        };
+        box.onmousemove = function(event) {
+            // console.log('鼠标移动', event);
+            if(isPress == false) {
+                return;
+            }
+
+            if(mouseType == 'pen') {
+                let point = { 
+                    left: event.x, 
+                    top: (event.y - box.offsetTop)
+                };
+                points.push(point)
+                if(points.length > 100) {
+                    points.shift();
+                }
+            } else {
+                let x = event.x
+                let y = event.y - box.offsetTop
+                points = points.filter(p => {
+                    let px = p.left;
+                    let py = p.top;
+                    // 计算两点之间的距离
+                    let len = Math.sqrt((px-x) * (px-x) + (py-y) * (py-y))
+                    return len > 50;
+                })
+            }
+            
+            renderPoints(event);
+            
+        };
+
+        function renderPoints(event) {
+            if(mouseType == 'pen') {
+                box.innerHTML = ''
+            } else {
+                box.innerHTML = '';
+                renderCaToBox(event)
+            }
+            for(let point of points) {
+                    renderPointToBox(point)
+                }
+            renderPointList();
+        }
+
+        function renderCaToBox(event) {
+            let caBox = document.createElement('div')
+            caBox.classList.add('ca-box')
+            caBox.style.left = (event.x - 25) + 'px'
+            caBox.style.top = (event.y - 25) + 'px'
+            box.appendChild(caBox)
+        }
+
+        function renderPointToBox(point) {
+            let p = document.createElement('div')
+            p.classList.add('point')
+            box.appendChild(p)
+            p.style.left = point.left + 'px';
+            p.style.top = point.top + 'px';
+        }
+
+        function renderPointList() {
+            pointList.innerHTML = ''
+            for(let point of points) {
+                let line = document.createElement('div')
+                line.innerHTML = `<div>x: ${point.left}px, y: ${point.top}px</div>`
+                pointList.appendChild(line)
+            }
+        }
+
+    </script>
+</body>
+</html>

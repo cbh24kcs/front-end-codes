@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/ramda/0.28.0/ramda.js"></script>
+</head>
+
+<body>
+    <script>
+
+
+        // ##########9##########
+
+        function createPrintLine(c) {
+            return function (num) {
+                console.log(c.repeat(10) + num + c.repeat(10));
+            }
+        }
+
+        let print1 = createPrintLine('#')
+        let print2 = createPrintLine('*')
+        let print3 = createPrintLine('&')
+        let print4 = createPrintLine('哇')
+
+
+        // print1(1)
+        // print1(20)
+        // print1(999)
+
+        // print2(999)
+        // print2(999)
+
+        // print4(123)
+
+
+        // document.getElementById
+        // document.getElementsByClassName
+        // document.getElementsByName
+        // document.getElementsByTagName
+
+        // function e_id(id) {
+        //     return document.getElementById(id)
+        // }
+
+        // function e_class(cls) {
+        //     return document.getElementsByClassName(cls)
+        // }
+
+        // function e_name(name) {
+        //     return document.getElementsByName(name)
+        // }
+
+        // function e_tag_name(tagName) {
+        //     return document.getElementsByTagName(tagName)
+        // }
+
+        // function $e(type) {
+        //     return {
+        //         'id': document.getElementById,
+        //         'class': document.getElementsByClassName,
+        //         'name': document.getElementsByName,
+        //         'tag': document.getElementsByTagName
+        //     }[type]
+        // }
+
+        // let box = document.getElementById('box')
+        // let box = $e('id')('box')
+
+        // 数据 -> 处理A -> 处理B -> ..... -> 结果
+        // 总处理 = 处理A & 处理B & .......
+        // 数据 -> 总处理
+
+        let s = 'Hello World my username is zs';
+        // s.split(切分用的字符)
+        // 字符串.length
+        // let arr = s.split(' ')
+        // console.log(arr);
+        // let lengthArr = arr.map(x => x.length)
+        // console.log(lengthArr);
+
+        // // let arr = [5, 1, 7, 3, 9, 8, 2, 6];
+
+        // let 擂台上的人;
+
+        // 擂台上的人 = lengthArr[0] // 初始化
+
+        // for(let i=1; i<lengthArr.length; i++) {
+        //     let x = lengthArr[i];
+        //     if(x > 擂台上的人) {
+        //         擂台上的人 = x
+        //     }
+        // }
+
+        // console.log(擂台上的人);
+
+        // console.log(R);
+
+        // let getWordMaxLength = R.pipe(
+        //     R.split(' '),
+        //     R.map(R.length),
+        //     R.reduce(R.max)(0)
+        // );
+
+        // let res = getWordMaxLength(s);
+        // console.log(res);
+
+        console.log(R.add(3, 4));
+        console.log(R.add(3)(4));
+        console.log(R.add()(3)(4));
+
+        let a = 3;
+        function b () {};
+
+
+    </script>
+</body>
+
+</html>

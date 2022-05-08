@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .abc {
+            border: 1px solid green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        颜色：
+        <input type="text" v-model="h1ColorRed">
+        <input type="text" v-model="h1ColorGreen">
+        <input type="text" v-model="h1ColorBlue">
+        <br>
+        字体大小：<input type="text" v-model="h1FontSize">
+        <h1 :title="alertMsg" :style="h1Style">{{msg}}</h1>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello World',
+                alertMsg: '鼠标一上来就会显示这个提示',
+                h1ColorRed: 0,
+                h1ColorGreen: 0,
+                h1ColorBlue: 0,
+                h1FontSize: 24
+            },
+            computed: {
+                h1Color() {
+                    // rgb(r, g, b)
+                    return 'rgb(' + this.h1ColorRed + ',' + this.h1ColorGreen + ',' + this.h1ColorBlue + ')'
+                },
+                h1Style() {
+                    return {
+                        color: this.h1Color,
+                        fontSize: this.h1FontSize + 'px'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

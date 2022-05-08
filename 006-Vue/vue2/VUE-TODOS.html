@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .done {
+            color: gray;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <input type="text" v-model="input" @keydown.enter="addTodo">
+        <ul v-if="todos.length">
+            <li v-for="todo in todos">
+                <input type="checkbox" v-model="todo.done">
+                <span :class="{done: todo.done}">{{todo.title}}</span>
+            </li>
+        </ul>
+        <div v-else>暂无数据</div>
+        <div>{{active}} / {{all}}</div>
+        <div>全选：<input type="checkbox" v-model="allDone"></div>
+        <button v-if="active < all" @click="clear">清理</button>
+    </div>
+
+    <!-- 数据驱动 -->
+    <!-- 页面怎么变，看数据怎么变 -->
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.js"></script>
+    <script>
+
+        function not(x) {
+            return !x;
+        }
+
+        new Vue({
+            el: '#app',
+            data: {
+                input: '',
+                todos: [],
+            },
+            methods: {
+                addTodo() {
+                    this.todos.push({title: this.input, done: false})
+                    this.input = ''
+                },
+                clear() {
+                    this.todos = this.todos.filter(v=>!v.done)
+                }
+            },
+            computed: {
+                active() {
+                    return this.todos.filter(v=>not(v.done)).length
+                },
+                all() {
+                    return this.todos.length
+                },
+                allDone: {
+                    get() {
+                        return this.active === 0;
+                    },
+                    set(val) {
+                        this.todos.forEach(todo => todo.done = val)
+                    }
+                }
+            },
+            watch: {
+                todos(newVal, oldVal) {
+                    localStorage.setItem('todos', JSON.stringify(newVal))
+                }
+            },
+            mounted() {
+                this.todos = JSON.parse(localStorage.getItem('todos')) || []
+            }
+        });
+    </script>
+</body>
+</html>
+

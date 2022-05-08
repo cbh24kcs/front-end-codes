@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+
+        #todo-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #todo-list li {
+            transition: all 1s;
+        }
+
+        #todo-list li:hover {
+            background-color: green;
+            color: #fff;
+        }
+
+        .done {
+            color: #ccc;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="todo-input">
+    <button id="add-btn">添加</button>
+    <ul id="todo-list"></ul>
+
+
+    <script src="./bing-utils.js"></script>
+    <script>
+        let todoInput = $bing.e_id('todo-input')
+        let todoList = $bing.e_id('todo-list')
+        let addBtn = $bing.e_id('add-btn')
+
+        // Alt + X
+        let todos = [
+            { id: 1, name: '学习Vue', done: false },
+            { id: 2, name: '学习React', done: false },
+            { id: 3, name: '吃饭', done: true },
+        ];
+
+        renderTodos();
+
+        addBtn.onclick = function () {
+            let item = { id: Date.now(), name: todoInput.value, done: false }
+            todos.push(item)
+            renderTodos();
+            todoInput.value = ''
+        }
+
+        function renderTodos() {
+            todoList.innerHTML = '';
+            for (let i = 0; i < todos.length; i++) {
+                let li = document.createElement('li')
+                let checkbox = document.createElement('input')
+                checkbox.type = 'checkbox'
+
+                li.appendChild(checkbox)
+                li.innerHTML += todos[i].name;
+
+                if (todos[i].done) {
+                    li.firstElementChild.checked = 'checked'
+                    li.classList.add('done')
+                }
+
+                li.setAttribute('data-id', todos[i].id)
+                todoList.appendChild(li)
+            }
+
+            let checkboxList = todoList.querySelectorAll('input[type="checkbox"]');
+            for (let i = 0; i < checkboxList.length; i++) {
+                let cb = checkboxList[i];
+                let parent = cb.parentElement;
+                let todo = todos.filter(todo => todo.id == parent.getAttribute('data-id'))[0];
+                cb.onclick = function () {
+                    if (cb.checked) {
+                        parent.classList.add('done')
+                        todo.done = true
+                    } else {
+                        parent.classList.remove('done')
+                        todo.done = false
+                    }
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
