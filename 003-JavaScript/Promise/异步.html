@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        console.log('hello world');
-        
+      console.log("hello world");
+
+      // 期约
+      const p = new Promise((resolve, reject) => {
         // 异步
-        setTimeout(()=> {
-            console.log('666666666');
-        }, 1000);
+        setTimeout(() => {
+          console.log("666666666");
+          //   resolve("我兑现了期约");
+          reject("我赖账了");
+        }, 2000);
+      });
 
-        console.log('hello world');
+      p.then(
+        // 兑现的时候执行这个
+        (data) => {
+          console.log("成功，数据是: " + data);
+        },
+        // 不兑现的时候执行这个
+        (reason) => {
+          console.log("失败，原因是: " + reason);
+        }
+      );
+
+      console.log("hello world");
     </script>
-</body>
+  </body>
 </html>
-
-
