@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 菜单表
+      // {id: xxx, name: xxx, parentId: xxx}
+      // {id: xxx, name: xxx, parentId: xxx}
+      // {id: xxx, name: xxx, parentId: xxx}
+      // {id: xxx, name: xxx, parentId: xxx}
+      // {id: xxx, name: xxx, parentId: xxx}
+      // {id: xxx, name: xxx, parentId: xxx}
+      let menus = [
+        { id: 1, name: "系统管理", parentId: null },
+        { id: 2, name: "用户管理", parentId: 1 },
+        { id: 3, name: "角色管理", parentId: 1 },
+        { id: 4, name: "订单管理", parentId: null },
+        { id: 5, name: "出库管理", parentId: 4 },
+        { id: 6, name: "入库管理", parentId: 4 },
+        { id: 7, name: "新增用户", parentId: 2 },
+        { id: 8, name: "修改用户", parentId: 2 },
+        { id: 9, name: "删除用户", parentId: 2 },
+      ];
+
+      //   menus.forEach(
+      //     (item) => (item.children = menus.filter((m) => m.parentId == item.id))
+      //   );
+      let result = menus
+        .map((item) => {
+          item.children = menus.filter((m) => m.parentId == item.id);
+          return item;
+        })
+        .filter((x) => x.parentId === null);
+
+      //   for (let i = 0; i < menus.length; i++) {
+      //     menus[i].children = [];
+      //     for (let j = 0; j < menus.length; j++) {
+      //       if (menus[j].parentId == menus[i].id) {
+      //         menus[i].children.push(menus[j]);
+      //       }
+      //     }
+      //   }
+
+      //   let result = [];
+      //   for (let i = 0; i < menus.length; i++) {
+      //     if (menus[i].parentId === null) {
+      //       result.push(menus[i]);
+      //     }
+      //   }
+
+      //   menus = result;
+
+      //   menus = menus.map((m) => {
+      //     if (m.parentId != null) {
+      //       delete m.parentId;
+      //     }
+      //     return m;
+      //   });
+      //   menus = menus.filter((m) => m.parentId === null);
+
+      console.log(result);
+      console.log(JSON.stringify(result));
+
+      //   let idtree = {};
+      //   menus.forEach(function (item) {
+      //     idtree[item.id] = item;
+      //   });
+      //   console.log(idtree);
+
+      let menuTree = [
+        {
+          id: 1,
+          name: "系统管理",
+          children: [
+            {
+              id: 2,
+              name: "用户管理",
+              children: [
+                { id: 7, name: "新增用户" },
+                { id: 8, name: "修改用户" },
+                { id: 9, name: "删除用户" },
+              ],
+            },
+            { id: 3, name: "角色管理" },
+          ],
+        },
+        {
+          id: 4,
+          name: "订单管理",
+          children: [
+            { id: 5, name: "出库管理" },
+            { id: 6, name: "入库管理" },
+          ],
+        },
+      ];
+    </script>
+  </body>
+</html>

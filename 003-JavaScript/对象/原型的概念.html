@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 构造函数
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      Person.prototype.show = function () {
+        console.log(`我叫${this.name}, 我${this.age}岁了`);
+      };
+
+      let p1 = new Person("张三", 18);
+      let p2 = new Person("里斯", 19);
+
+      p1.show();
+      p2.show();
+
+      console.log(p1.show === p2.show);
+      console.log(
+        "p1.__proto__ === p2.__proto__",
+        p1.__proto__ === p2.__proto__
+      );
+
+      // 需要一种机制，可以让同一个构造函数创建的对象来共享一些东西
+      // 原型对象，是一种特殊的对象（每个对象都有一个原型对象, 包括原型对象本身）
+      // 当你访问一个对象身上不存在的属性的时候，会接着去对象的原型对象身上去找，如果找到Object的原型还找不到，则报错
+
+      console.log(p1);
+      console.log(p2);
+
+      console.log("通过对象访问原型对象", p1.__proto__);
+      console.log(
+        "对象.__proro__ == 构造函数.prototype",
+        p1.__proto__ === Person.prototype
+      );
+      console.log("原型的原型", p1.__proto__.__proto__);
+      console.log("Object的原型", Object.prototype);
+      console.log(p1.__proto__.__proto__ === Object.prototype);
+    </script>
+  </body>
+</html>

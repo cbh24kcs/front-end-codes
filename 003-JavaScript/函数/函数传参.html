@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function fun({ a, b, c }) {
+        console.log(a, b, c);
+      }
+
+      fun({
+        b: 4,
+        a: 3,
+        c: 5,
+      });
+
+      //   let params = {
+      //     a: 3,
+      //     b: 4,
+      //     c: 5,
+      //   };
+
+      //   let { a, b, c } = params;
+      //   console.log(a, b, c);
+    </script>
+  </body>
+</html>

@@ -8,9 +8,14 @@
   </head>
   <body>
     <script>
-      let arr = [1, 2, 3, 4, 5, 6, 7, 8];
-      let 新数组 = arr.filter((item) => item % 2 == 1);
-      console.log(新数组);
+      let obj = new Object;
+      // 给对象添加属性
+      obj.name = "张三";
+      obj.age = 18;
+      console.log(obj);
+      // delete obj.name;
+      obj.name = undefined;
+      console.log(obj);
     </script>
   </body>
 </html>

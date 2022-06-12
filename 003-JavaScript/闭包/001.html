@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let n = 1000;
+      let result = [];
+
+      for (let i = 3; i <= n; i++) {
+        if (是否是质数(i)) {
+          result.push(i);
+        }
+      }
+
+      console.log(result);
+
+      function 是否是质数(x) {
+        for (let i = 2; i < x; i++) {
+          if (x % i == 0) {
+            return false;
+          }
+        }
+        return true;
+      }
+    </script>
+  </body>
+</html>
